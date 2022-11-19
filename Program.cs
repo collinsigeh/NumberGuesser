@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             DisplayAppInfo();
             GreetPlayer();
@@ -10,7 +10,7 @@
             while (true)
             {
                 // Begin game
-                string replay = "N";
+                string replay;
 
                 Random random = new Random();
                 int correctNumber = random.Next(1, 11);
