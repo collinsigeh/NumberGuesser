@@ -9,7 +9,10 @@
             string appVersion = "1.0.0";
             string appAuthor = "Collins Igeh";
             string appPlayer = "";
-            int correctNumber = 7;
+
+            Random random = new Random();
+
+            int correctNumber = random.Next(1, 11);
             int guessedNumber = 0;
 
             // App intro
@@ -17,8 +20,11 @@
             Console.WriteLine("{0}: Version {1} by {2}", appName, appVersion, appAuthor);
             Console.ResetColor();
 
-            Console.WriteLine("What is your name?");
-            appPlayer = Console.ReadLine();
+            while (string.IsNullOrEmpty(appPlayer))
+            {
+                Console.WriteLine("What is your name?");
+                appPlayer = Console.ReadLine();
+            }
 
             Console.WriteLine("Hello {0}, let's play a game...", appPlayer);
 
@@ -28,7 +34,15 @@
             // Game checks
             while (guessedNumber != correctNumber)
             {
-                guessedNumber = Int32.Parse(Console.ReadLine());
+                //guessedNumber = Int32.Parse(Console.ReadLine());
+                if(!int.TryParse(Console.ReadLine(), out guessedNumber) || guessedNumber < 1 || guessedNumber > 10)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid entry. Try again!");
+                    Console.ResetColor();
+
+                    continue;
+                }
 
                 if(guessedNumber != correctNumber)
                 {
