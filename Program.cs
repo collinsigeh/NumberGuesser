@@ -9,10 +9,8 @@
             string appVersion = "1.0.0";
             string appAuthor = "Collins Igeh";
             string appPlayer = "";
-
-            Random random = new Random();
-
-            int correctNumber = random.Next(1, 11);
+            string replay = "";
+            int correctNumber = 0;
             int guessedNumber = 0;
 
             // App intro
@@ -28,34 +26,52 @@
 
             Console.WriteLine("Hello {0}, let's play a game...", appPlayer);
 
-            // Begin game
-            Console.Write("\nGuess a number between 1 and 10: ");
-
-            // Game checks
-            while (guessedNumber != correctNumber)
+            while(true)
             {
-                //guessedNumber = Int32.Parse(Console.ReadLine());
-                if(!int.TryParse(Console.ReadLine(), out guessedNumber) || guessedNumber < 1 || guessedNumber > 10)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid entry. Try again!");
-                    Console.ResetColor();
+                // Begin game
+                replay = "N";
+                Random random = new Random();
+                correctNumber = random.Next(1, 11);
+                Console.Write("\nGuess a number between 1 and 10: ");
 
+                // Game checks
+                while (guessedNumber != correctNumber)
+                {
+                    //guessedNumber = Int32.Parse(Console.ReadLine());
+                    if (!int.TryParse(Console.ReadLine(), out guessedNumber) || guessedNumber < 1 || guessedNumber > 10)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Invalid entry. Try again!");
+                        Console.ResetColor();
+
+                        continue;
+                    }
+
+                    if (guessedNumber != correctNumber)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Wrong number. Try again!");
+                        Console.ResetColor();
+                    }
+                }
+
+                // End game
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("You are CORRECT!");
+                Console.ResetColor();
+
+                Console.Write("\nPress \"Y\" to play again.");
+                replay = Console.ReadLine().ToUpper();
+
+                if (replay == "Y")
+                {
                     continue;
                 }
-
-                if(guessedNumber != correctNumber)
+                else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Wrong number. Try again!");
-                    Console.ResetColor();
+                    return;
                 }
             }
-
-            // End game
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("You are CORRECT!");
-            Console.ResetColor();
         }
     }
 }
